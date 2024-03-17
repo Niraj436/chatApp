@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors"
+import morgan  from "morgan";
 
 import authRoutes from "./Router/authRoute.js";
 import messageRoutes from "./Router/messageRoute.js";
@@ -13,9 +15,15 @@ const app = express();
 const PORT = process.env.PORT || 8000; 
 
 
-
+app.use(morgan("dev"));
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+
+
  
 
 app.use("/auth", authRoutes);

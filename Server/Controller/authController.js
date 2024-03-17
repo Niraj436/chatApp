@@ -33,7 +33,12 @@ export const signup = async (req, res) => {
     if (newUser) {
       generateTokenandSetCookie(newUser._id, res);
       await newUser.save();
-      res.send({ message: "User created successfully" });
+      res.status(201).json({
+        _id:newUser._id,
+        fullName:newUser.fullName,
+        username:newUser.username,
+        profilePic:newUser.profilePic,
+      })
     } else {
       return res.status(400).json({ error: "User data invalid!" });
     }
@@ -57,7 +62,12 @@ export const login = async (req, res) => {
         .json({ error: "Username or password is incorrect" });
     }
     generateTokenandSetCookie(user._id, res);
-    res.send({ message: "User logged in successfully" });
+    res.status(201).json({
+      _id:user._id,
+      fullName:user.fullName,
+      username:user.username,
+      profilePic:user.profilePic,
+    })
   } catch (error) {
     res.status(500).json({ error: "Something went wrong" });
   }
