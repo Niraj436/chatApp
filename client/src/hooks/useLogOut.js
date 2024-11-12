@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import { API } from "../config/config";
 
 
 const useLogOut = () => {
@@ -8,7 +9,7 @@ const useLogOut = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/auth/logout", {
+      const res = await fetch(`${API}/auth/logout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials:"include"
